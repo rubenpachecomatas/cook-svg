@@ -1,0 +1,82 @@
+import { Button } from "@/components/ui/button";
+import { SvgElementTypes } from "@/enums/svg-element-types.enum";
+import {
+  Circle,
+  Cylinder,
+  Download,
+  Minus,
+  Pyramid,
+  RectangleHorizontal,
+  Spline,
+  Upload,
+} from "lucide-react";
+import { UseEditorReturnType } from "../hooks/types/useEditorReturn.type";
+
+const Controllers = ({
+  handleAddElement,
+  handleExport,
+}: Pick<UseEditorReturnType, "handleAddElement" | "handleExport">) => (
+  <div className="p-2 h-full flex flex-col gap-2">
+    <Button
+      onClick={() => handleAddElement(SvgElementTypes.CIRCLE)}
+      size="sm"
+      variant="ghost"
+    >
+      <div className="controller">
+        <Circle />
+        Add circle
+      </div>
+    </Button>
+    <Button
+      onClick={() => handleAddElement(SvgElementTypes.RECT)}
+      className="flex gap-2 w-full"
+      size="sm"
+      variant="ghost"
+    >
+      <div className="controller">
+        <RectangleHorizontal />
+        Add rectangle
+      </div>
+    </Button>
+    <Button size="sm" variant="ghost">
+      <div className="controller">
+        <Spline />
+        Add path
+      </div>
+    </Button>
+    <Button size="sm" variant="ghost">
+      <div className="controller">
+        <Cylinder />
+        Add ellipse
+      </div>
+    </Button>
+    <Button size="sm" variant="ghost">
+      <div className="controller">
+        <Pyramid />
+        Add polygon
+      </div>
+    </Button>
+    <Button size="sm" variant="ghost">
+      <div className="controller">
+        <Minus />
+        Add line
+      </div>
+    </Button>
+    <div className="mt-auto flex flex-col sm:flex-row gap-2">
+      <Button
+        onClick={() => null}
+        className="flex gap-2 w-full"
+        variant="secondary"
+      >
+        <Upload />
+        Import
+      </Button>
+      <Button onClick={handleExport} className="flex gap-2 w-full">
+        <Download />
+        Export
+      </Button>
+    </div>
+  </div>
+);
+
+export default Controllers;
