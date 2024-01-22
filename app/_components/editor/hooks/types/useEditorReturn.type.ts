@@ -6,5 +6,6 @@ export type UseEditorReturnType = {
   elements: SvgElement[];
   handleAddElement: (type: SvgElementTypes) => void;
   handleExport: () => void;
+  handleImport: (value: any) => void;
   svgRef: RefObject<ElementRef<"svg">>;
 };

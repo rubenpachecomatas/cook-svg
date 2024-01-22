@@ -11,11 +11,13 @@ import {
   Upload,
 } from "lucide-react";
 import { UseEditorReturnType } from "../hooks/types/useEditorReturn.type";
+import Import from "./Import";
 
 const Controllers = ({
   handleAddElement,
   handleExport,
-}: Pick<UseEditorReturnType, "handleAddElement" | "handleExport">) => (
+  handleImport,
+}: Pick<UseEditorReturnType, "handleAddElement" | "handleExport" | "handleImport">) => (
   <div className="p-2 h-full flex flex-col gap-2">
     <Button
       onClick={() => handleAddElement(SvgElementTypes.CIRCLE)}
@@ -63,14 +65,7 @@ const Controllers = ({
       </div>
     </Button>
     <div className="mt-auto flex flex-col sm:flex-row gap-2">
-      <Button
-        onClick={() => null}
-        className="flex gap-2 w-full"
-        variant="secondary"
-      >
-        <Upload />
-        Import
-      </Button>
+      <Import handleImport={handleImport} />
       <Button onClick={handleExport} className="flex gap-2 w-full">
         <Download />
         Export

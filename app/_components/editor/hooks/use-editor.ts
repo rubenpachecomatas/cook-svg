@@ -27,11 +27,18 @@ const useEditor = (): UseEditorReturnType => {
     }
   };
 
+  const handleImport = (e: any) => {
+    e.preventDefault();
+    console.log(e.currentTarget.svgInput.value);
+    return false
+  };
+
   return {
     svgRef,
     handleAddElement,
     elements,
     handleExport,
+    handleImport,
   };
 };
 

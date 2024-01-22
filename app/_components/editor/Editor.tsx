@@ -10,7 +10,7 @@ import { SvgElementTypes } from "@/enums/svg-element-types.enum";
 import Controllers from "./_components/Controllers";
 
 const Editor = () => {
-  const { handleAddElement, elements, handleExport, svgRef } = useEditor();
+  const { handleAddElement, elements, handleExport, handleImport, svgRef } = useEditor();
 
   return (
     <ResizablePanelGroup
@@ -21,6 +21,7 @@ const Editor = () => {
         <Controllers
           handleAddElement={handleAddElement}
           handleExport={handleExport}
+          handleImport={handleImport}
         />
       </ResizablePanel>
       <ResizableHandle />
