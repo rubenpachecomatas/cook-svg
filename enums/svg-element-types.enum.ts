@@ -1,4 +1,4 @@
 export enum SvgElementTypes {
-  CIRCLE = "circle",
-  RECT = "rect",
+  circle = "circle",
+  rect = "rect",
 }

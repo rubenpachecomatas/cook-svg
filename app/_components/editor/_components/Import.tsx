@@ -34,7 +34,7 @@ const Import = ({
         </DialogDescription>
       </DialogHeader>
       <form onSubmit={handleImport} className="flex flex-col gap-6">
-        <Input name="svgInput" type="file" accept=".svg" />
+        <Input name="svgInput" type="file" accept="image/svg+xml" />
       <DialogFooter className="flex gap-2 mt-auto">
         <Button variant="secondary">Cancel</Button>
         <Button type="submit">Import</Button>

@@ -10,7 +10,7 @@ import { SvgElementTypes } from "@/enums/svg-element-types.enum";
 import Controllers from "./_components/Controllers";
 
 const Editor = () => {
-  const { handleAddElement, elements, handleExport, handleImport, svgRef } = useEditor();
+  const { svgAttributes, handleAddElement, elements, handleExport, handleImport, svgRef } = useEditor();
 
   return (
     <ResizablePanelGroup
@@ -29,18 +29,12 @@ const Editor = () => {
         <div className="flex justify-center items-center h-full">
           <svg
             ref={svgRef}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            {...svgAttributes}
           >
             {elements.map(({ type }, i) => {
-              if (type === SvgElementTypes.CIRCLE)
+              if (type === SvgElementTypes.circle)
                 return <circle key={i} cx="12" cy="12" r="10" />;
-              if (type === SvgElementTypes.RECT)
+              if (type === SvgElementTypes.rect)
                 return <rect key={i} width="24" height="24" />;
             })}
           </svg>

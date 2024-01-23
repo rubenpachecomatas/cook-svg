@@ -8,4 +8,5 @@ export type UseEditorReturnType = {
   handleExport: () => void;
   handleImport: (value: any) => void;
   svgRef: RefObject<ElementRef<"svg">>;
+  svgAttributes: object;
 };
