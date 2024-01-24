@@ -2,6 +2,7 @@ import { SvgElementTypes } from "@/enums/svg-element-types.enum";
 import { SvgElement } from "@/types/svg-element.type";
 import { useState, useRef, ElementRef, SyntheticEvent } from "react";
 import { UseEditorReturnType } from "./types/useEditorReturn.type";
+import { randomUUID } from "crypto";
 
 const useEditor = (): UseEditorReturnType => {
   const svgRef = useRef<ElementRef<"svg">>(null);
@@ -14,10 +15,31 @@ const useEditor = (): UseEditorReturnType => {
     strokeLinecap: "round",
     strokeLinejoin: "round",
   });
-  const [elements, setElements] = useState<any[]>([]);
+  const [elements, setElements] = useState<object[]>([]);
 
   const handleAddElement = (element: object) => {
-    setElements((prev) => [...prev, element]);
+    setElements((prev) => [...prev, { id: prev.length + 1, ...element }]);
+  };
+
+  const handleChangeAttribute = ({ e, id, field }) => {
+    setElements((prev) => {
+      let aux;
+      let aux2 = prev.filter((e) => {
+        if (e.id !== id) {
+          return true;
+        } else {
+          aux = e;
+          return false;
+        }
+      });
+      return [
+        ...aux2,
+        {
+          type: aux.type,
+          attributes: { ...aux.attributes, [field]: e.target.value },
+        },
+      ];
+    });
   };
 
   const handleExport = () => {
@@ -75,7 +97,11 @@ const useEditor = (): UseEditorReturnType => {
           const node = nodes[i];
           setElements((prev) => [
             ...prev,
-            { type: node.nodeName, attributes: formatAttributes(node.attributes) },
+            {
+              id: prev.length + 1,
+              type: node.nodeName,
+              attributes: formatAttributes(node.attributes),
+            },
           ]);
         }
       }
@@ -91,6 +117,7 @@ const useEditor = (): UseEditorReturnType => {
     elements,
     handleExport,
     handleImport,
+    handleChangeAttribute,
   };
 };
 
