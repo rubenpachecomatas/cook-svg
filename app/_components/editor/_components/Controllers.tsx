@@ -17,10 +17,22 @@ const Controllers = ({
   handleAddElement,
   handleExport,
   handleImport,
-}: Pick<UseEditorReturnType, "handleAddElement" | "handleExport" | "handleImport">) => (
+}: Pick<
+  UseEditorReturnType,
+  "handleAddElement" | "handleExport" | "handleImport"
+>) => (
   <div className="p-2 h-full flex flex-col gap-2">
     <Button
-      onClick={() => handleAddElement(SvgElementTypes.CIRCLE)}
+      onClick={() =>
+        handleAddElement({
+          type: "circle",
+          attributes: {
+            cx: "12",
+            cy: "12",
+            r: "10",
+          },
+        })
+      }
       size="sm"
       variant="ghost"
     >
@@ -30,7 +42,15 @@ const Controllers = ({
       </div>
     </Button>
     <Button
-      onClick={() => handleAddElement(SvgElementTypes.RECT)}
+      onClick={() =>
+        handleAddElement({
+          type: "rect",
+          attributes: {
+            width: "24",
+            height: "24",
+          },
+        })
+      }
       className="flex gap-2 w-full"
       size="sm"
       variant="ghost"

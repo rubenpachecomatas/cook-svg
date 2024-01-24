@@ -14,10 +14,10 @@ const useEditor = (): UseEditorReturnType => {
     strokeLinecap: "round",
     strokeLinejoin: "round",
   });
-  const [elements, setElements] = useState<SvgElement[]>([]);
+  const [elements, setElements] = useState<any[]>([]);
 
-  const handleAddElement = (type: SvgElementTypes) => {
-    setElements((prev) => [...prev, { type }]);
+  const handleAddElement = (element: object) => {
+    setElements((prev) => [...prev, element]);
   };
 
   const handleExport = () => {
@@ -42,6 +42,17 @@ const useEditor = (): UseEditorReturnType => {
     return cleanedSVG;
   };
 
+  const formatAttributes = (attributes: NamedNodeMap): any => {
+    let newSvgAttributes: Record<string, string> = {};
+
+    for (let i = 0; i < attributes.length; i++) {
+      const attribute = attributes[i];
+      newSvgAttributes[attribute.name] = attribute.value;
+    }
+
+    return newSvgAttributes;
+  };
+
   const handleImport = (e: any) => {
     e.preventDefault();
     const reader = new FileReader();
@@ -51,25 +62,21 @@ const useEditor = (): UseEditorReturnType => {
 
       if (typeof svgCode === "string") {
         const parser = new DOMParser();
-        const doc = parser.parseFromString(sanitizeSVG(svgCode), "image/svg+xml");
-        
-        const attributes = doc.documentElement.attributes;
-        const nodes = doc.documentElement.childNodes;
+        const doc = parser.parseFromString(
+          sanitizeSVG(svgCode),
+          "image/svg+xml"
+        );
 
-        let newSvgAttributes: Record<string, string> = {};
+        const nodes = doc.documentElement.children;
 
-        for (let i = 0; i < attributes.length; i++) {
-          const attribute = attributes[i];
-          newSvgAttributes[attribute.name] = attribute.value;
-        }
-        
-        setSvgAttributes(newSvgAttributes);
+        setSvgAttributes(formatAttributes(doc.documentElement.attributes));
 
         for (let i = 0; i < nodes.length; i++) {
           const node = nodes[i];
-          if (["circle", "rect"].includes(node.nodeName))
-          setElements((prev) => [...prev, { type: node.nodeName }]);
-          
+          setElements((prev) => [
+            ...prev,
+            { type: node.nodeName, attributes: formatAttributes(node.attributes) },
+          ]);
         }
       }
     };

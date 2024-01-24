@@ -31,11 +31,11 @@ const Editor = () => {
             ref={svgRef}
             {...svgAttributes}
           >
-            {elements.map(({ type }, i) => {
+            {elements.map(({ type, attributes }, i) => {
               if (type === SvgElementTypes.circle)
-                return <circle key={i} cx="12" cy="12" r="10" />;
+                return <circle key={i} {...attributes} />;
               if (type === SvgElementTypes.rect)
-                return <rect key={i} width="24" height="24" />;
+                return <rect key={i} {...attributes} />;
             })}
           </svg>
         </div>
