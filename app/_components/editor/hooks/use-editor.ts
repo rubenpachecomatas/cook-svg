@@ -1,20 +1,14 @@
-import { SvgElementTypes } from "@/enums/svg-element-types.enum";
-import { SvgElement } from "@/types/svg-element.type";
-import { useState, useRef, ElementRef, SyntheticEvent } from "react";
+import { useState, useRef, ElementRef } from "react";
 import { UseEditorReturnType } from "./types/useEditorReturn.type";
-import { randomUUID } from "crypto";
+import { downloadFile, sanitizeSVG } from "./utils/use-editor.utils";
+import { DEFAULT_SVG_ATTRIBUTES } from "./constants/use-editor.constants";
 
 const useEditor = (): UseEditorReturnType => {
   const svgRef = useRef<ElementRef<"svg">>(null);
-  const [svgAttributes, setSvgAttributes] = useState<any>({
-    xmlns: "http://www.w3.org/2000/svg",
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-  });
+
+  const [svgAttributes, setSvgAttributes] = useState<any>(
+    DEFAULT_SVG_ATTRIBUTES
+  );
   const [elements, setElements] = useState<object[]>([]);
 
   const handleAddElement = (element: object) => {
@@ -23,20 +17,20 @@ const useEditor = (): UseEditorReturnType => {
 
   const handleChangeAttribute = ({ e, id, field }) => {
     setElements((prev) => {
-      let aux;
-      let aux2 = prev.filter((e) => {
+      let prevEl;
+      let filteredElements = prev.filter((e) => {
         if (e.id !== id) {
           return true;
         } else {
-          aux = e;
+          prevEl = e;
           return false;
         }
       });
       return [
-        ...aux2,
+        ...filteredElements,
         {
-          type: aux.type,
-          attributes: { ...aux.attributes, [field]: e.target.value },
+          type: prevEl.type,
+          attributes: { ...prevEl.attributes, [field]: e.target.value },
         },
       ];
     });
@@ -48,20 +42,9 @@ const useEditor = (): UseEditorReturnType => {
         type: "image/svg+xml;charset=utf-8",
       });
       const svgUrl = URL.createObjectURL(svgBlob);
-      const link = document.createElement("a");
 
-      link.href = svgUrl;
-      link.download = "delicious-svg.svg";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      downloadFile(svgUrl, "delicious-svg.svg");
     }
-  };
-
-  const sanitizeSVG = (svgCode: string) => {
-    const cleanedSVG = svgCode.replace(/<script.*?<\/script>/gs, "");
-
-    return cleanedSVG;
   };
 
   const formatAttributes = (attributes: NamedNodeMap): any => {
@@ -75,39 +58,40 @@ const useEditor = (): UseEditorReturnType => {
     return newSvgAttributes;
   };
 
+  const loadSvg = (event: ProgressEvent<FileReader>) => {
+    const svgCode = event?.target?.result;
+
+    if (typeof svgCode === "string") {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(sanitizeSVG(svgCode), "image/svg+xml");
+
+      setSvgAttributes(formatAttributes(doc.documentElement.attributes));
+
+      const nodes = doc.documentElement.children;
+
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        setElements((prev) => [
+          ...prev,
+          {
+            id: prev.length + 1,
+            type: node.nodeName,
+            attributes: formatAttributes(node.attributes),
+          },
+        ]);
+      }
+    }
+  };
+
   const handleImport = (e: any) => {
     e.preventDefault();
+
+    const file = e.target.svgInput.files?.[0];
     const reader = new FileReader();
 
-    reader.onload = (event: ProgressEvent<FileReader>) => {
-      const svgCode = event?.target?.result;
+    reader.onload = loadSvg;
 
-      if (typeof svgCode === "string") {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(
-          sanitizeSVG(svgCode),
-          "image/svg+xml"
-        );
-
-        const nodes = doc.documentElement.children;
-
-        setSvgAttributes(formatAttributes(doc.documentElement.attributes));
-
-        for (let i = 0; i < nodes.length; i++) {
-          const node = nodes[i];
-          setElements((prev) => [
-            ...prev,
-            {
-              id: prev.length + 1,
-              type: node.nodeName,
-              attributes: formatAttributes(node.attributes),
-            },
-          ]);
-        }
-      }
-    };
-
-    reader.readAsText(e.target.svgInput.files?.[0]);
+    reader.readAsText(file);
   };
 
   return {
