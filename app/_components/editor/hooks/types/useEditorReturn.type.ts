@@ -3,7 +3,7 @@ import { SvgElement } from "@/types/svg-element.type";
 import { ElementRef, RefObject } from "react";
 
 export type UseEditorReturnType = {
-  elements: object[];
+  elements: SvgElement[];
   handleAddElement: (type: any) => void;
   handleExport: () => void;
   handleImport: (value: any) => void;

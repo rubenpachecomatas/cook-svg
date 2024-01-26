@@ -1,7 +1,16 @@
 import { useState, useRef, ElementRef } from "react";
 import { UseEditorReturnType } from "./types/useEditorReturn.type";
-import { downloadFile, sanitizeSVG } from "./utils/use-editor.utils";
-import { DEFAULT_SVG_ATTRIBUTES } from "./constants/use-editor.constants";
+import {
+  downloadFile,
+  isSvgElementTypes,
+  sanitizeSVG,
+} from "./utils/use-editor.utils";
+import {
+  DEFAULT_SVG_ATTRIBUTES,
+} from "./constants/use-editor.constants";
+import { SvgElement } from "@/types/svg-element.type";
+import { SvgElementTypes } from "@/enums/svg-element-types.enum";
+import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
 
 const useEditor = (): UseEditorReturnType => {
   const svgRef = useRef<ElementRef<"svg">>(null);
@@ -9,31 +18,37 @@ const useEditor = (): UseEditorReturnType => {
   const [svgAttributes, setSvgAttributes] = useState<any>(
     DEFAULT_SVG_ATTRIBUTES
   );
-  const [elements, setElements] = useState<object[]>([]);
+  const [elements, setElements] = useState<SvgElement[]>([]);
 
-  const handleAddElement = (element: object) => {
+  const handleAddElement = (element: {
+    type: SvgElementTypes;
+    attributes: SvgElementAttributesType;
+  }) => {
     setElements((prev) => [...prev, { id: prev.length + 1, ...element }]);
   };
 
-  const handleChangeAttribute = ({ e, id, field }) => {
-    setElements((prev) => {
-      let prevEl;
-      let filteredElements = prev.filter((e) => {
-        if (e.id !== id) {
-          return true;
-        } else {
-          prevEl = e;
-          return false;
-        }
-      });
-      return [
-        ...filteredElements,
-        {
-          type: prevEl.type,
-          attributes: { ...prevEl.attributes, [field]: e.target.value },
+  const handleChangeAttribute = ({
+    e,
+    id,
+    field,
+  }: {
+    e: any;
+    id: number;
+    field: string;
+  }) => {
+    const elToEdit = elements.findIndex((e) => e.id === id);
+    if (elToEdit !== -1) {
+      const newElements = JSON.parse(JSON.stringify(elements));
+      newElements[elToEdit] = {
+        ...newElements[elToEdit],
+        attributes: {
+          ...newElements[elToEdit].attributes,
+          [field]: e.target.value,
         },
-      ];
-    });
+      };
+
+      setElements(newElements);
+    }
   };
 
   const handleExport = () => {
@@ -47,7 +62,9 @@ const useEditor = (): UseEditorReturnType => {
     }
   };
 
-  const formatAttributes = (attributes: NamedNodeMap): any => {
+  const formatAttributes = (
+    attributes: NamedNodeMap
+  ): SvgElementAttributesType => {
     let newSvgAttributes: Record<string, string> = {};
 
     for (let i = 0; i < attributes.length; i++) {
@@ -71,14 +88,18 @@ const useEditor = (): UseEditorReturnType => {
 
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
-        setElements((prev) => [
-          ...prev,
-          {
-            id: prev.length + 1,
-            type: node.nodeName,
-            attributes: formatAttributes(node.attributes),
-          },
-        ]);
+        const name: string | SvgElementTypes = node.nodeName;
+
+        if (isSvgElementTypes(name)) {
+          setElements((prev) => [
+            ...prev,
+            {
+              id: prev.length + 1,
+              type: name,
+              attributes: formatAttributes(node.attributes),
+            },
+          ]);
+        }
       }
     }
   };

@@ -25,7 +25,7 @@ const Controllers = ({
     <Button
       onClick={() =>
         handleAddElement({
-          type: "circle",
+          type: SvgElementTypes.circle,
           attributes: {
             cx: "12",
             cy: "12",
@@ -44,7 +44,7 @@ const Controllers = ({
     <Button
       onClick={() =>
         handleAddElement({
-          type: "rect",
+          type: SvgElementTypes.rect,
           attributes: {
             width: "24",
             height: "24",
