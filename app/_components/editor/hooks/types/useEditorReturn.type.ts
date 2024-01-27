@@ -1,4 +1,4 @@
-import { SvgElementTypes } from "@/enums/svg-element-types.enum";
+import { SvgAttributesType } from "@/types/svg-attributes.type";
 import { SvgElement } from "@/types/svg-element.type";
 import { ElementRef, RefObject } from "react";
 
@@ -11,6 +11,7 @@ export type UseEditorReturnType = {
   handleExport: () => void;
   handleImport: (value: any) => void;
   scale: number;
-  svgAttributes: object;
+  svgAttributes: SvgAttributesType;
   svgRef: RefObject<ElementRef<"svg">>;
+  importCloseRef: RefObject<ElementRef<"button">>;
 };

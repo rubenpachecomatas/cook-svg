@@ -2,6 +2,8 @@ import { useState, useRef, ElementRef } from "react";
 import { UseEditorReturnType } from "./types/useEditorReturn.type";
 import {
   downloadFile,
+  formatSvgAttributes,
+  formatSvgElementAttributes,
   isSvgElementTypes,
   sanitizeSVG,
 } from "./utils/use-editor.utils";
@@ -9,15 +11,17 @@ import { DEFAULT_SVG_ATTRIBUTES } from "./constants/use-editor.constants";
 import { SvgElement } from "@/types/svg-element.type";
 import { SvgElementTypes } from "@/enums/svg-element-types.enum";
 import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
+import { SvgAttributesType } from "@/types/svg-attributes.type";
 
 const useEditor = (): UseEditorReturnType => {
   const svgRef = useRef<ElementRef<"svg">>(null);
+  const importCloseRef = useRef<ElementRef<"button">>(null);
 
-  const [svgAttributes, setSvgAttributes] = useState<any>(
+  const [svgAttributes, setSvgAttributes] = useState<SvgAttributesType>(
     DEFAULT_SVG_ATTRIBUTES
   );
   const [elements, setElements] = useState<SvgElement[]>([]);
-  const [scale, setScale] = useState<number>(75);
+  const [scale, setScale] = useState<number>(100);
 
   const handleChangeScale = (value: number[]) => setScale(value[0]);
 
@@ -67,19 +71,6 @@ const useEditor = (): UseEditorReturnType => {
     }
   };
 
-  const formatAttributes = (
-    attributes: NamedNodeMap
-  ): SvgElementAttributesType => {
-    let newSvgAttributes: Record<string, string> = {};
-
-    for (let i = 0; i < attributes.length; i++) {
-      const attribute = attributes[i];
-      newSvgAttributes[attribute.name] = attribute.value;
-    }
-
-    return newSvgAttributes;
-  };
-
   const loadSvg = (event: ProgressEvent<FileReader>) => {
     const svgCode = event?.target?.result;
 
@@ -87,7 +78,7 @@ const useEditor = (): UseEditorReturnType => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(sanitizeSVG(svgCode), "image/svg+xml");
 
-      setSvgAttributes(formatAttributes(doc.documentElement.attributes));
+      setSvgAttributes(formatSvgAttributes(doc.documentElement.attributes));
 
       const nodes = doc.documentElement.children;
 
@@ -101,7 +92,7 @@ const useEditor = (): UseEditorReturnType => {
             {
               id: prev.length + 1,
               type: name,
-              attributes: formatAttributes(node.attributes),
+              attributes: formatSvgElementAttributes(node.attributes),
             },
           ]);
         }
@@ -118,6 +109,8 @@ const useEditor = (): UseEditorReturnType => {
     reader.onload = loadSvg;
 
     reader.readAsText(file);
+
+    importCloseRef.current?.click();
   };
 
   return {
@@ -131,6 +124,7 @@ const useEditor = (): UseEditorReturnType => {
     scale,
     svgAttributes,
     svgRef,
+    importCloseRef,
   };
 };
 

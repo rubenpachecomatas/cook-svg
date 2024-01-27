@@ -1,3 +1,5 @@
+import { SvgAttributesType } from "./svg-attributes.type";
+
 export type SvgElementAttributesType =
   | Circle
   | Ellipse
@@ -6,6 +8,7 @@ export type SvgElementAttributesType =
   | Polygon
   | Polyline
   | Rect
+  | SvgAttributesType
   | Record<string, string>;
 
 export type Circle = {

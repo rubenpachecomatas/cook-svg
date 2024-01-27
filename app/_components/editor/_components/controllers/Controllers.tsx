@@ -9,7 +9,7 @@ import {
   Spline,
 } from "lucide-react";
 import { UseEditorReturnType } from "../../hooks/types/useEditorReturn.type";
-import Import from "../Import";
+import Import from "../import/Import";
 import {
   DEFAULT_CIRCLE,
   DEFAULT_ELLIPSE,
@@ -24,9 +24,10 @@ const Controllers = ({
   handleAddElement,
   handleExport,
   handleImport,
+  importCloseRef,
 }: Pick<
   UseEditorReturnType,
-  "handleAddElement" | "handleExport" | "handleImport"
+  "handleAddElement" | "handleExport" | "handleImport" | "importCloseRef"
 >) => (
   <div className="p-2 h-full flex flex-col gap-2">
     <Button
@@ -101,7 +102,7 @@ const Controllers = ({
       </div>
     </Button>
     <div className="mt-auto flex flex-col sm:flex-row gap-2">
-      <Import handleImport={handleImport} />
+      <Import handleImport={handleImport} importCloseRef={importCloseRef} />
       <Button onClick={handleExport} className="flex gap-2 w-full">
         <Download />
         Export
