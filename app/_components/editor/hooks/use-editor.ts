@@ -56,6 +56,16 @@ const useEditor = (): UseEditorReturnType => {
     }
   };
 
+  const handleChangeSvgAttribute = ({
+    e,
+    field,
+  }: {
+    e: any;
+    field: string;
+  }) => {
+    setSvgAttributes((prev) => ({ ...prev, [field]: e.target.value }));
+  };
+
   const handleDeleteElement = (elId: number) => {
     setElements((prev) => prev.filter(({ id }) => id !== elId));
   };
@@ -118,13 +128,14 @@ const useEditor = (): UseEditorReturnType => {
     handleAddElement,
     handleChangeAttribute,
     handleChangeScale,
+    handleChangeSvgAttribute,
     handleDeleteElement,
     handleExport,
     handleImport,
+    importCloseRef,
     scale,
     svgAttributes,
     svgRef,
-    importCloseRef,
   };
 };
 

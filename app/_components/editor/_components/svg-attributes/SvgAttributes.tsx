@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input";
 import { SvgAttributesProps } from "./types/SvgAttributes.type";
 import { SvgAttributesType } from "@/types/svg-attributes.type";
 
-const SvgAttributes = ({ svgAttributes }: SvgAttributesProps) => (
+const SvgAttributes = ({ svgAttributes, handleChangeSvgAttribute }: SvgAttributesProps) => (
   <div className="flex flex-col gap-2 my-2">
     <h4 className="text-lg font-semibold">Svg Attributes</h4>
     <div className="flex flex-col gap-2">
@@ -18,7 +18,7 @@ const SvgAttributes = ({ svgAttributes }: SvgAttributesProps) => (
                   ""
                 : ""
             }
-            onChange={(e) => null}
+            onChange={(e) => handleChangeSvgAttribute({ e, field })}
           />
         </div>
       ))}

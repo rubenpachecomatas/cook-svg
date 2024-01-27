@@ -5,7 +5,16 @@ import { ElementRef, RefObject } from "react";
 export type UseEditorReturnType = {
   elements: SvgElement[];
   handleAddElement: (type: any) => void;
-  handleChangeAttribute: (e: any) => void;
+  handleChangeAttribute: ({
+    e,
+    id,
+    field,
+  }: {
+    e: any;
+    id: number;
+    field: string;
+  }) => void;
+  handleChangeSvgAttribute: ({ e, field }: { e: any; field: string }) => void;
   handleChangeScale: (value: number[]) => void;
   handleDeleteElement: (id: number) => void;
   handleExport: () => void;

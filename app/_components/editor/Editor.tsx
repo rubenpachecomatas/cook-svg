@@ -26,6 +26,7 @@ const Editor = () => {
     svgAttributes,
     svgRef,
     importCloseRef,
+    handleChangeSvgAttribute,
   } = useEditor();
 
   return (
@@ -65,7 +66,7 @@ const Editor = () => {
             />
           </TabsContent>
           <TabsContent value="attributes" className="size-full mt-10">
-            <SvgAttributes {...{ svgAttributes }} />
+            <SvgAttributes {...{ svgAttributes, handleChangeSvgAttribute }} />
           </TabsContent>
         </Tabs>
       </ResizablePanel>

@@ -11,39 +11,45 @@ export type SvgElementAttributesType =
   | SvgAttributesType
   | Record<string, string>;
 
-export type Circle = {
+export type CommonAttributes = {
+  fill: string;
+  stroke: string;
+  strokeWidth: string;
+};
+
+export type Circle = CommonAttributes & {
   cx: number;
   cy: number;
   r: number;
 };
 
-export type Ellipse = {
+export type Ellipse = CommonAttributes & {
   cx: number;
   cy: number;
   rx: number;
   ry: number;
 };
 
-export type Line = {
+export type Line = CommonAttributes & {
   x1: number;
   y1: number;
   x2: number;
   y2: number;
 };
 
-export type Path = {
+export type Path = CommonAttributes & {
   d: string;
 };
 
-export type Polygon = {
+export type Polygon = CommonAttributes & {
   points: string;
 };
 
-export type Polyline = {
+export type Polyline = CommonAttributes & {
   points: string;
 };
 
-export type Rect = {
+export type Rect = CommonAttributes & {
   x: number;
   y: number;
   width: number;
