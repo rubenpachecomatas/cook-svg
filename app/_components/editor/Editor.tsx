@@ -58,7 +58,13 @@ const Editor = () => {
             </div>
             <div className="flex justify-center items-center h-full p-2">
               <svg
-                className={`scale-${scale}`}
+                className={cn(
+                  scale === 50 && "scale-50",
+                  scale === 75 && "scale-75",
+                  scale === 100 && "scale-100",
+                  scale === 125 && "scale-125",
+                  scale === 150 && "scale-150"
+                )}
                 ref={svgRef}
                 {...svgAttributes}
               >
