@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/resizable";
 import useEditor from "./hooks/use-editor";
 import { SvgElementTypes } from "@/enums/svg-element-types.enum";
-import Controllers from "./_components/Controllers";
+import Controllers from "./_components/controllers/Controllers";
 import { Input } from "@/components/ui/input";
 import { SvgElement } from "@/types/svg-element.type";
 import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
@@ -46,6 +46,16 @@ const Editor = () => {
                     return <circle key={i} {...attributes} />;
                   if (type === SvgElementTypes.rect)
                     return <rect key={i} {...attributes} />;
+                  if (type === SvgElementTypes.ellipse)
+                    return <ellipse key={i} {...attributes} />;
+                  if (type === SvgElementTypes.line)
+                    return <line key={i} {...attributes} />;
+                  if (type === SvgElementTypes.path)
+                    return <path key={i} {...attributes} />;
+                  if (type === SvgElementTypes.polygon)
+                    return <polygon key={i} {...attributes} />;
+                  if (type === SvgElementTypes.polyline)
+                    return <polyline key={i} {...attributes} />;
                 })}
               </svg>
             </div>
