@@ -5,9 +5,7 @@ import {
   isSvgElementTypes,
   sanitizeSVG,
 } from "./utils/use-editor.utils";
-import {
-  DEFAULT_SVG_ATTRIBUTES,
-} from "./constants/use-editor.constants";
+import { DEFAULT_SVG_ATTRIBUTES } from "./constants/use-editor.constants";
 import { SvgElement } from "@/types/svg-element.type";
 import { SvgElementTypes } from "@/enums/svg-element-types.enum";
 import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
@@ -19,6 +17,9 @@ const useEditor = (): UseEditorReturnType => {
     DEFAULT_SVG_ATTRIBUTES
   );
   const [elements, setElements] = useState<SvgElement[]>([]);
+  const [scale, setScale] = useState<number>(75);
+
+  const handleChangeScale = (value: number[]) => setScale(value[0]);
 
   const handleAddElement = (element: {
     type: SvgElementTypes;
@@ -49,6 +50,10 @@ const useEditor = (): UseEditorReturnType => {
 
       setElements(newElements);
     }
+  };
+
+  const handleDeleteElement = (elId: number) => {
+    setElements((prev) => prev.filter(({ id }) => id !== elId));
   };
 
   const handleExport = () => {
@@ -116,13 +121,16 @@ const useEditor = (): UseEditorReturnType => {
   };
 
   return {
-    svgAttributes,
-    svgRef,
-    handleAddElement,
     elements,
+    handleAddElement,
+    handleChangeAttribute,
+    handleChangeScale,
+    handleDeleteElement,
     handleExport,
     handleImport,
-    handleChangeAttribute,
+    scale,
+    svgAttributes,
+    svgRef,
   };
 };
 

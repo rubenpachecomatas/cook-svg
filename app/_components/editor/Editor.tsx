@@ -11,15 +11,21 @@ import Controllers from "./_components/controllers/Controllers";
 import { Input } from "@/components/ui/input";
 import { SvgElement } from "@/types/svg-element.type";
 import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
+import { Eraser } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
+import { cn } from "@/lib/utils";
 
 const Editor = () => {
   const {
-    svgAttributes,
-    handleAddElement,
     elements,
+    handleAddElement,
     handleChangeAttribute,
+    handleChangeScale,
+    handleDeleteElement,
     handleExport,
     handleImport,
+    scale,
+    svgAttributes,
     svgRef,
   } = useEditor();
 
@@ -37,10 +43,25 @@ const Editor = () => {
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel defaultSize={50}>
-        <ResizablePanelGroup direction="vertical">
-          <ResizablePanel defaultSize={50} className="p-2">
-            <div className="flex justify-center items-center h-full">
-              <svg ref={svgRef} {...svgAttributes}>
+        <ResizablePanelGroup direction="vertical" className="relative">
+          <ResizablePanel defaultSize={50} className="overflow-important">
+            <div className="absolute top-10 right-10 z-10">
+              <Slider
+                className="w-20 border-2 rounded-md border-white"
+                value={[scale]}
+                step={25}
+                minStepsBetweenThumbs={1}
+                max={150}
+                min={50}
+                onValueChange={handleChangeScale}
+              />
+            </div>
+            <div className="flex justify-center items-center h-full p-2">
+              <svg
+                className={`scale-${scale}`}
+                ref={svgRef}
+                {...svgAttributes}
+              >
                 {elements.map(({ type, attributes }, i) => {
                   if (type === SvgElementTypes.circle)
                     return <circle key={i} {...attributes} />;
@@ -61,14 +82,20 @@ const Editor = () => {
             </div>
           </ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel defaultSize={50} className="p-2">
-            <div>
+          <ResizablePanel defaultSize={50} className="overflow-important">
+            <div className="p-2">
               {elements.map(({ id, type, attributes }: SvgElement) => (
                 <div key={id}>
-                  <h4 className="text-lg font-semibold">{type}</h4>
+                  <div className="flex gap-2 items-center my-2">
+                    <h4 className="text-lg font-semibold">{type}</h4>
+                    <Eraser
+                      className="size-5 cursor-pointer hover:text-slate-500"
+                      onClick={() => handleDeleteElement(id)}
+                    />
+                  </div>
                   <div className="flex flex-col gap-2">
-                    {Object.keys(attributes).map((field) => (
-                      <div className="grid grid-cols-4 items-center">
+                    {Object.keys(attributes).map((field, i) => (
+                      <div key={i} className="grid grid-cols-4 items-center">
                         <p className=" grid-flow-col">{field}</p>
                         <Input
                           className="text-right col-span-3"

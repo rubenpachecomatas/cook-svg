@@ -79,4 +79,7 @@
   .controller {
     @apply flex justify-start gap-2 w-full;
   }
+  .overflow-important {
+    @apply overflow-auto !important;
+  }
 }
