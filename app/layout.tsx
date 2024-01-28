@@ -20,7 +20,7 @@ export default function RootLayout({
       <body
         className={cn(
           onest.className,
-          "h-screen p-5 flex flex-col gap-3"
+          "h-screen"
         )}
       >
         {children}

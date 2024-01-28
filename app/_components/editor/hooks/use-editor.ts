@@ -1,4 +1,4 @@
-import { useState, useRef, ElementRef } from "react";
+import { useState, useRef, ElementRef, useEffect } from "react";
 import { UseEditorReturnType } from "./types/useEditorReturn.type";
 import {
   downloadFile,
@@ -14,16 +14,20 @@ import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
 import { SvgAttributesType } from "@/types/svg-attributes.type";
 import { DEFAULT_COMMON_ATTRIBUTES } from "../_components/controllers/constants/controllers.constants";
 import { DropResult } from "@hello-pangea/dnd";
+import { useMediaQuery } from "usehooks-ts";
 
 const useEditor = (): UseEditorReturnType => {
   const svgRef = useRef<ElementRef<"svg">>(null);
   const importCloseRef = useRef<ElementRef<"button">>(null);
 
+  const [isMobile, setisMobile] = useState<boolean | null>(null);
   const [svgAttributes, setSvgAttributes] = useState<SvgAttributesType>(
     DEFAULT_SVG_ATTRIBUTES
   );
   const [elements, setElements] = useState<SvgElement[]>([]);
   const [scale, setScale] = useState<number>(100);
+
+  const matches = useMediaQuery("(max-width: 1024px");
 
   const handleDragElement = (result: DropResult) => {
     const { source, destination } = result;
@@ -141,6 +145,10 @@ const useEditor = (): UseEditorReturnType => {
     importCloseRef.current?.click();
   };
 
+  useEffect(() => {
+    setisMobile(matches);
+  }, [matches]);
+
   return {
     elements,
     handleAddElement,
@@ -155,6 +163,7 @@ const useEditor = (): UseEditorReturnType => {
     scale,
     svgAttributes,
     svgRef,
+    isMobile,
   };
 };
 

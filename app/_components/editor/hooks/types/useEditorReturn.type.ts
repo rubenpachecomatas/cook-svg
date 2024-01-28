@@ -22,6 +22,7 @@ export type UseEditorReturnType = {
   handleExport: () => void;
   handleImport: (value: any) => void;
   importCloseRef: RefObject<ElementRef<"button">>;
+  isMobile: boolean | null;
   scale: number;
   svgAttributes: SvgAttributesType;
   svgRef: RefObject<ElementRef<"svg">>;

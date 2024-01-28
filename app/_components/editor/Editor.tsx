@@ -28,49 +28,109 @@ const Editor = () => {
     importCloseRef,
     handleChangeSvgAttribute,
     handleDragElement,
+    isMobile,
   } = useEditor();
+
+  if (isMobile === null) return;
 
   return (
     <ResizablePanelGroup
       className="w-full h-full border-2"
-      direction="horizontal"
+      direction={isMobile ? "vertical" : "horizontal"}
     >
-      <ResizablePanel defaultSize={25}>
-        <Controllers
-          handleAddElement={handleAddElement}
-          handleExport={handleExport}
-          handleImport={handleImport}
-          importCloseRef={importCloseRef}
-        />
-      </ResizablePanel>
-      <ResizableHandle />
-      <ResizablePanel
-        defaultSize={50}
-        className="flex justify-center items-center relative overflow-important"
-      >
-        <ZoomSlider {...{ scale, handleChangeScale }} />
-        <SvgCanvas {...{ scale, svgRef, elements, svgAttributes }} />
-      </ResizablePanel>
-      <ResizableHandle />
-      <ResizablePanel defaultSize={25} className="p-2 overflow-important">
-        <Tabs
-          defaultValue="elements"
-          className="h-full flex flex-col items-center relative"
-        >
-          <TabsList className="fixed">
-            <TabsTrigger value="elements">Elements</TabsTrigger>
-            <TabsTrigger value="attributes">Svg Attributes</TabsTrigger>
-          </TabsList>
-          <TabsContent value="elements" className="size-full mt-10">
-            <SvgElements
-              {...{ elements, handleChangeAttribute, handleDeleteElement, handleDragElement }}
+      {isMobile ? (
+        <>
+          <ResizablePanel
+            defaultSize={50}
+            className="flex justify-center items-center relative overflow-important"
+          >
+            <ZoomSlider {...{ scale, handleChangeScale }} />
+            <SvgCanvas {...{ scale, svgRef, elements, svgAttributes }} />
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel defaultSize={50} className="p-2 overflow-important">
+            <Tabs
+              defaultValue="elements"
+              className="h-full flex flex-col items-center relative"
+            >
+              <TabsList className="fixed">
+                <TabsTrigger value="controllers">Controllers</TabsTrigger>
+                <TabsTrigger value="elements">Elements</TabsTrigger>
+                <TabsTrigger value="attributes">Svg Attributes</TabsTrigger>
+              </TabsList>
+              <TabsContent value="controllers" className="size-full mt-10">
+                <Controllers
+                  handleAddElement={handleAddElement}
+                  handleExport={handleExport}
+                  handleImport={handleImport}
+                  importCloseRef={importCloseRef}
+                />
+              </TabsContent>
+              <TabsContent value="elements" className="size-full mt-10">
+                <SvgElements
+                  {...{
+                    elements,
+                    handleChangeAttribute,
+                    handleDeleteElement,
+                    handleDragElement,
+                  }}
+                />
+              </TabsContent>
+              <TabsContent value="attributes" className="size-full mt-10">
+                <SvgAttributes
+                  {...{ svgAttributes, handleChangeSvgAttribute }}
+                />
+              </TabsContent>
+            </Tabs>
+          </ResizablePanel>
+        </>
+      ) : (
+        <>
+          <ResizablePanel defaultSize={25}>
+            <Controllers
+              handleAddElement={handleAddElement}
+              handleExport={handleExport}
+              handleImport={handleImport}
+              importCloseRef={importCloseRef}
             />
-          </TabsContent>
-          <TabsContent value="attributes" className="size-full mt-10">
-            <SvgAttributes {...{ svgAttributes, handleChangeSvgAttribute }} />
-          </TabsContent>
-        </Tabs>
-      </ResizablePanel>
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel
+            defaultSize={50}
+            className="flex justify-center items-center relative overflow-important"
+          >
+            <ZoomSlider {...{ scale, handleChangeScale }} />
+            <SvgCanvas {...{ scale, svgRef, elements, svgAttributes }} />
+          </ResizablePanel>
+          <ResizableHandle />
+          <ResizablePanel defaultSize={25} className="p-2 overflow-important">
+            <Tabs
+              defaultValue="elements"
+              className="h-full flex flex-col items-center relative"
+            >
+              <TabsList className="fixed">
+                <TabsTrigger value="elements">Elements</TabsTrigger>
+                <TabsTrigger value="attributes">Svg Attributes</TabsTrigger>
+              </TabsList>
+              <TabsContent value="elements" className="size-full mt-10">
+                <SvgElements
+                  {...{
+                    elements,
+                    handleChangeAttribute,
+                    handleDeleteElement,
+                    handleDragElement,
+                  }}
+                />
+              </TabsContent>
+              <TabsContent value="attributes" className="size-full mt-10">
+                <SvgAttributes
+                  {...{ svgAttributes, handleChangeSvgAttribute }}
+                />
+              </TabsContent>
+            </Tabs>
+          </ResizablePanel>
+        </>
+      )}
     </ResizablePanelGroup>
   );
 };
