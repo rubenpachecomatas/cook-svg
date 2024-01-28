@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Onest } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { cn } from "@/lib/utils";
 
 const onest = Onest({ subsets: ["latin"] });
@@ -16,15 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={cn(
-          onest.className,
-          "h-screen flex flex-col"
-        )}
-      >
-        {children}
-      </body>
-    </html>
+    <div className="h-full">
+      {children}
+    </div>
   );
 }
