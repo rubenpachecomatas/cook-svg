@@ -18,7 +18,7 @@ export default function Home() {
                 <span className="text-md">Start cooking</span>
                 </Link>
             </Button>
-            <Button variant="outline" size="lg">
+            <Button disabled variant="outline" size="lg">
               <Link href="/kitchen" className="flex items-center gap-2">
                 <BookText className="size-5" />
                 <span className="text-md">Check our recipes</span>
