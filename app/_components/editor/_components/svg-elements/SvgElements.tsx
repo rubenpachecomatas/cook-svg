@@ -1,40 +1,88 @@
+"use client"
+
 import { Input } from "@/components/ui/input";
 import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
 import { SvgElement } from "@/types/svg-element.type";
-import { Eraser } from "lucide-react";
+import { Eraser, GripVertical } from "lucide-react";
 import { SvgElementsProps } from "./types/SvgElements.type";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 
 const SvgElements = ({
   elements,
   handleDeleteElement,
   handleChangeAttribute,
+  handleDragElement,
 }: SvgElementsProps): React.ReactElement =>
   elements.length > 0 ? (
-    <div className="pb-2">
-      {elements.map(({ id, type, attributes }: SvgElement) => (
-        <div key={id}>
-          <div className="flex gap-2 items-center my-2">
-            <h4 className="text-lg font-semibold">{type}</h4>
-            <Eraser
-              className="size-5 cursor-pointer hover:text-slate-500"
-              onClick={() => handleDeleteElement(id)}
-            />
+    <DragDropContext onDragEnd={handleDragElement}>
+      <Droppable droppableId="elements-droppable">
+        {(provided) => (
+          <div
+            className="pb-2"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            <Accordion type="single" collapsible>
+              {elements.map(({ id, type, attributes }: SvgElement, index) => (
+                <Draggable key={id} draggableId={id.toString()} index={index}>
+                  {(provided) => (
+                    <AccordionItem
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                      value={id.toString()}
+                    >
+                      <AccordionTrigger className=" flex gap-2 px-2 py-1">
+                        <div className="flex w-full gap-2 items-center justify-between my-2">
+                          <div className="flex gap-1 items-center">
+                            <GripVertical />
+                            <h4 className="text-lg font-semibold">{type}</h4>
+                          </div>
+                          <Eraser
+                            className="size-5 cursor-pointer hover:text-slate-500"
+                            onClick={() => handleDeleteElement(id)}
+                          />
+                        </div>
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <div className="flex flex-col gap-2">
+                          {Object.keys(attributes).map((field, i) => (
+                            <div
+                              key={i}
+                              className="grid grid-cols-6 items-center"
+                            >
+                              <p className="col-span-2">{field}</p>
+                              <Input
+                                className="text-right col-span-4"
+                                value={
+                                  attributes[
+                                    field as keyof SvgElementAttributesType
+                                  ]
+                                }
+                                onChange={(e) =>
+                                  handleChangeAttribute({ e, id, field })
+                                }
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </Accordion>
           </div>
-          <div className="flex flex-col gap-2">
-            {Object.keys(attributes).map((field, i) => (
-              <div key={i} className="grid grid-cols-4 items-center">
-                <p className=" grid-flow-col">{field}</p>
-                <Input
-                  className="text-right col-span-3"
-                  value={attributes[field as keyof SvgElementAttributesType]}
-                  onChange={(e) => handleChangeAttribute({ e, id, field })}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   ) : (
     <div className="h-full flex items-center justify-center">
       <h2 className="text-2xl font-bold text-center opacity-25">

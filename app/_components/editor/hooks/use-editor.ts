@@ -12,6 +12,8 @@ import { SvgElement } from "@/types/svg-element.type";
 import { SvgElementTypes } from "@/enums/svg-element-types.enum";
 import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
 import { SvgAttributesType } from "@/types/svg-attributes.type";
+import { DEFAULT_COMMON_ATTRIBUTES } from "../_components/controllers/constants/controllers.constants";
+import { DropResult } from "@hello-pangea/dnd";
 
 const useEditor = (): UseEditorReturnType => {
   const svgRef = useRef<ElementRef<"svg">>(null);
@@ -22,6 +24,19 @@ const useEditor = (): UseEditorReturnType => {
   );
   const [elements, setElements] = useState<SvgElement[]>([]);
   const [scale, setScale] = useState<number>(100);
+
+  const handleDragElement = (result: DropResult) => {
+    const { source, destination } = result;
+
+    if (!destination) return;
+
+    const newElements = [...JSON.parse(JSON.stringify(elements))];
+    const [item] = newElements.splice(source.index, 1);
+
+    newElements.splice(destination.index, 0, item);
+
+    setElements([...newElements]);
+  };
 
   const handleChangeScale = (value: number[]) => setScale(value[0]);
 
@@ -102,7 +117,10 @@ const useEditor = (): UseEditorReturnType => {
             {
               id: prev.length + 1,
               type: name,
-              attributes: formatSvgElementAttributes(node.attributes),
+              attributes: {
+                ...DEFAULT_COMMON_ATTRIBUTES,
+                ...formatSvgElementAttributes(node.attributes),
+              },
             },
           ]);
         }
@@ -130,6 +148,7 @@ const useEditor = (): UseEditorReturnType => {
     handleChangeScale,
     handleChangeSvgAttribute,
     handleDeleteElement,
+    handleDragElement,
     handleExport,
     handleImport,
     importCloseRef,

@@ -1,9 +1,12 @@
 import { SvgElementTypes } from "@/enums/svg-element-types.enum";
+import { CommonAttributes } from "@/types/svg-element-attributes.type";
 
-const DEFAULT_COMMON_ATTRIBUTES = {
+const DEFAULT_COMMON_ATTRIBUTES: CommonAttributes = {
   fill: "",
   stroke: "",
   strokeWidth: "",
+  strokeLinecap: undefined,
+  strokeLinejoin: undefined,
 };
 
 const DEFAULT_CIRCLE = {
@@ -77,10 +80,11 @@ const DEFAULT_POLYLINE = {
 
 export {
   DEFAULT_CIRCLE,
-  DEFAULT_RECT,
+  DEFAULT_COMMON_ATTRIBUTES,
   DEFAULT_ELLIPSE,
   DEFAULT_LINE,
   DEFAULT_PATH,
   DEFAULT_POLYGON,
   DEFAULT_POLYLINE,
+  DEFAULT_RECT,
 };

@@ -27,6 +27,7 @@ const Editor = () => {
     svgRef,
     importCloseRef,
     handleChangeSvgAttribute,
+    handleDragElement,
   } = useEditor();
 
   return (
@@ -62,7 +63,7 @@ const Editor = () => {
           </TabsList>
           <TabsContent value="elements" className="size-full mt-10">
             <SvgElements
-              {...{ elements, handleChangeAttribute, handleDeleteElement }}
+              {...{ elements, handleChangeAttribute, handleDeleteElement, handleDragElement }}
             />
           </TabsContent>
           <TabsContent value="attributes" className="size-full mt-10">

@@ -15,6 +15,8 @@ export type CommonAttributes = {
   fill: string;
   stroke: string;
   strokeWidth: string;
+  strokeLinecap?: "inherit" | "butt" | "round" | "square";
+  strokeLinejoin?: "inherit" | "round" | "miter" | "bevel";
 };
 
 export type Circle = CommonAttributes & {

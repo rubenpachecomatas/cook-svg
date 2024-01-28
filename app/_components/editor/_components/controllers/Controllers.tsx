@@ -7,6 +7,7 @@ import {
   Pyramid,
   RectangleHorizontal,
   Spline,
+  Waypoints,
 } from "lucide-react";
 import { UseEditorReturnType } from "../../hooks/types/useEditorReturn.type";
 import Import from "../import/Import";
@@ -97,7 +98,7 @@ const Controllers = ({
       onClick={() => handleAddElement(DEFAULT_POLYLINE)}
     >
       <div className="controller">
-        <Minus />
+        <Waypoints />
         Add polyline
       </div>
     </Button>
