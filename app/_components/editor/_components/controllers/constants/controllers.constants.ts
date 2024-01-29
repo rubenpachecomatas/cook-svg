@@ -78,6 +78,22 @@ const DEFAULT_POLYLINE = {
   },
 };
 
+const DEFAULT_TEXT = {
+  type: SvgElementTypes.text,
+  attributes: {
+    ...DEFAULT_COMMON_ATTRIBUTES,
+    x: "2",
+    y: "2",
+    dx: "",
+    dy: "",
+    rotate: "",
+    textLength: "",
+    lengthAdjust: "",
+    content: "",
+    fontSize: "",
+  }
+}
+
 export {
   DEFAULT_CIRCLE,
   DEFAULT_COMMON_ATTRIBUTES,
@@ -87,4 +103,5 @@ export {
   DEFAULT_POLYGON,
   DEFAULT_POLYLINE,
   DEFAULT_RECT,
+  DEFAULT_TEXT,
 };

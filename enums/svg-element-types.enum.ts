@@ -6,4 +6,5 @@ export enum SvgElementTypes {
   polygon = "polygon",
   polyline = "polyline",
   rect = "rect",
+  text = "text",
 }

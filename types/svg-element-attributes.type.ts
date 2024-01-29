@@ -9,6 +9,7 @@ export type SvgElementAttributesType =
   | Polyline
   | Rect
   | SvgAttributesType
+  | Text
   | Record<string, string>;
 
 export type CommonAttributes = {
@@ -59,3 +60,15 @@ export type Rect = CommonAttributes & {
   rx: number;
   ry: number;
 };
+
+export type Text = CommonAttributes & {
+  x: string;
+  y: string;
+  dx: string;
+  dy: string;
+  rotate: string;
+  textLength: string;
+  lengthAdjust: string;
+  content: string;
+  fontSize: string;
+}

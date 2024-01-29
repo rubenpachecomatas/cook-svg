@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
+  AlignLeft,
   Circle,
   Cylinder,
   Download,
@@ -19,6 +20,7 @@ import {
   DEFAULT_POLYGON,
   DEFAULT_POLYLINE,
   DEFAULT_RECT,
+  DEFAULT_TEXT,
 } from "./constants/controllers.constants";
 
 const Controllers = ({
@@ -100,6 +102,16 @@ const Controllers = ({
       <div className="controller">
         <Waypoints />
         Add polyline
+      </div>
+    </Button>
+    <Button
+      size="sm"
+      variant="ghost"
+      onClick={() => handleAddElement(DEFAULT_TEXT)}
+    >
+      <div className="controller">
+        <AlignLeft />
+        Add text
       </div>
     </Button>
     <div className="mt-auto flex flex-col sm:flex-row gap-2">

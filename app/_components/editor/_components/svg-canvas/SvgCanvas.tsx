@@ -9,6 +9,7 @@ import {
   Polygon,
   Polyline,
   Rect,
+  Text,
 } from "@/types/svg-element-attributes.type";
 
 const SvgCanvas = ({ scale, svgRef, elements, svgAttributes }: SvgCanvas) => (
@@ -38,6 +39,12 @@ const SvgCanvas = ({ scale, svgRef, elements, svgAttributes }: SvgCanvas) => (
             return <polygon key={i} {...(attributes as Polygon)} />;
           if (type === SvgElementTypes.polyline)
             return <polyline key={i} {...(attributes as Polyline)} />;
+          if (type === SvgElementTypes.text)
+            return (
+              <text key={i} {...(attributes as Text)}>
+                {(attributes as Text)?.content}
+              </text>
+            );
         })}
       </svg>
     </div>
