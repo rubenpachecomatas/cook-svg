@@ -107,7 +107,10 @@ const useEditor = (): UseEditorReturnType => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(sanitizeSVG(svgCode), "image/svg+xml");
 
-      setSvgAttributes(formatSvgAttributes(doc.documentElement.attributes));
+      setSvgAttributes({
+        ...DEFAULT_SVG_ATTRIBUTES,
+        ...formatSvgAttributes(doc.documentElement.attributes),
+      });
 
       const nodes = doc.documentElement.children;
 
@@ -124,6 +127,7 @@ const useEditor = (): UseEditorReturnType => {
               attributes: {
                 ...DEFAULT_COMMON_ATTRIBUTES,
                 ...formatSvgElementAttributes(node.attributes),
+                content: node.innerHTML,
               },
             },
           ]);
