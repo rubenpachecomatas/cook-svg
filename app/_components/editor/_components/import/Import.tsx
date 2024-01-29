@@ -20,10 +20,10 @@ const Import = ({
   handleImport,
   importCloseRef,
 }: Pick<UseEditorReturnType, "handleImport" | "importCloseRef">) => {
-  const { value, handleChange } = useImport();
+  const { open, setOpen, value, handleChange } = useImport();
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="flex gap-2 w-full" variant="secondary">
           <Upload />
