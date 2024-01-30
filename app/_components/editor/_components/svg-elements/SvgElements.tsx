@@ -24,11 +24,11 @@ const SvgElements = ({
       <Droppable droppableId="elements-droppable">
         {(provided) => (
           <div
-            className="pb-2"
+            className="h-full"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
-            <Accordion type="single" collapsible>
+            <Accordion className="h-full overflow-important pb-12" type="single" collapsible>
               {elements.map(({ id, type, attributes }: SvgElement, index) => (
                 <Draggable key={id} draggableId={id.toString()} index={index}>
                   {(provided) => (
@@ -38,7 +38,7 @@ const SvgElements = ({
                       ref={provided.innerRef}
                       value={id.toString()}
                     >
-                      <AccordionTrigger className=" flex gap-2 px-2 py-1">
+                      <AccordionTrigger className=" flex gap-2 px-3 py-1">
                         <div className="flex w-full gap-2 items-center justify-between my-2">
                           <div className="flex gap-1 items-center">
                             <GripVertical />
@@ -51,7 +51,7 @@ const SvgElements = ({
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-2 px-4 py-1">
                           {Object.keys(attributes).map((field, i) => (
                             <div
                               key={i}

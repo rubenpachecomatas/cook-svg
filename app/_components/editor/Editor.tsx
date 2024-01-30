@@ -42,23 +42,23 @@ const Editor = () => {
         <>
           <ResizablePanel
             defaultSize={50}
-            className="flex justify-center items-center relative overflow-important"
+            className="flex justify-center items-center relative"
           >
             <ZoomSlider {...{ scale, handleChangeScale }} />
             <SvgCanvas {...{ scale, svgRef, elements, svgAttributes }} />
           </ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel defaultSize={50} className="p-2 overflow-important">
+          <ResizablePanel defaultSize={50} className="p-2 h-full">
             <Tabs
               defaultValue="elements"
-              className="h-full flex flex-col items-center relative"
+              className="h-full flex flex-col items-center"
             >
-              <TabsList className="fixed">
+              <TabsList>
                 <TabsTrigger value="controllers">Controllers</TabsTrigger>
                 <TabsTrigger value="elements">Elements</TabsTrigger>
                 <TabsTrigger value="attributes">Svg Attributes</TabsTrigger>
               </TabsList>
-              <TabsContent value="controllers" className="size-full mt-10">
+              <TabsContent value="controllers" className="size-full">
                 <Controllers
                   handleAddElement={handleAddElement}
                   handleExport={handleExport}
@@ -66,7 +66,7 @@ const Editor = () => {
                   importCloseRef={importCloseRef}
                 />
               </TabsContent>
-              <TabsContent value="elements" className="size-full mt-10">
+              <TabsContent value="elements" className="size-full">
                 <SvgElements
                   {...{
                     elements,
@@ -76,7 +76,7 @@ const Editor = () => {
                   }}
                 />
               </TabsContent>
-              <TabsContent value="attributes" className="size-full mt-10">
+              <TabsContent value="attributes" className="size-full">
                 <SvgAttributes
                   {...{ svgAttributes, handleChangeSvgAttribute }}
                 />
@@ -97,22 +97,22 @@ const Editor = () => {
           <ResizableHandle />
           <ResizablePanel
             defaultSize={50}
-            className="flex justify-center items-center relative overflow-important"
+            className="flex justify-center items-center relative"
           >
             <ZoomSlider {...{ scale, handleChangeScale }} />
             <SvgCanvas {...{ scale, svgRef, elements, svgAttributes }} />
           </ResizablePanel>
           <ResizableHandle />
-          <ResizablePanel defaultSize={25} className="p-2 overflow-important">
+          <ResizablePanel defaultSize={25} className="p-2">
             <Tabs
               defaultValue="elements"
-              className="h-full flex flex-col items-center relative"
+              className="h-full flex flex-col items-center"
             >
-              <TabsList className="fixed">
+              <TabsList>
                 <TabsTrigger value="elements">Elements</TabsTrigger>
                 <TabsTrigger value="attributes">Svg Attributes</TabsTrigger>
               </TabsList>
-              <TabsContent value="elements" className="size-full mt-10">
+              <TabsContent value="elements" className="size-full">
                 <SvgElements
                   {...{
                     elements,
@@ -122,7 +122,7 @@ const Editor = () => {
                   }}
                 />
               </TabsContent>
-              <TabsContent value="attributes" className="size-full mt-10">
+              <TabsContent value="attributes" className="size-full">
                 <SvgAttributes
                   {...{ svgAttributes, handleChangeSvgAttribute }}
                 />

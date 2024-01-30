@@ -7,9 +7,9 @@ const SvgAttributes = ({
   svgAttributes,
   handleChangeSvgAttribute,
 }: SvgAttributesProps) => (
-  <div className="flex flex-col gap-2 my-2">
+  <div className="flex flex-col gap-2 m-2 h-full">
     <h4 className="text-lg font-semibold">Svg Attributes</h4>
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 pb-16 h-full overflow-important">
       {Object.keys(svgAttributes)
         .filter((field) => !FILTERED_ATTRIBUTES.includes(field))
         .map((field, i) => (

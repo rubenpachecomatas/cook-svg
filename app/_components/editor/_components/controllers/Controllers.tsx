@@ -32,12 +32,8 @@ const Controllers = ({
   UseEditorReturnType,
   "handleAddElement" | "handleExport" | "handleImport" | "importCloseRef"
 >) => (
-  <div className="p-2 h-full flex flex-col gap-2">
-    <Button
-      onClick={() => handleAddElement(DEFAULT_CIRCLE)}
-      size="sm"
-      variant="ghost"
-    >
+  <div className="p-2 h-full flex flex-col gap-2 overflow-important">
+    <Button onClick={() => handleAddElement(DEFAULT_CIRCLE)} variant="ghost">
       <div className="controller">
         <Circle />
         Add circle
@@ -46,7 +42,6 @@ const Controllers = ({
     <Button
       onClick={() => handleAddElement(DEFAULT_RECT)}
       className="flex gap-2 w-full"
-      size="sm"
       variant="ghost"
     >
       <div className="controller">
@@ -54,67 +49,43 @@ const Controllers = ({
         Add rectangle
       </div>
     </Button>
-    <Button
-      size="sm"
-      variant="ghost"
-      onClick={() => handleAddElement(DEFAULT_ELLIPSE)}
-    >
+    <Button variant="ghost" onClick={() => handleAddElement(DEFAULT_ELLIPSE)}>
       <div className="controller">
         <Cylinder />
         Add ellipse
       </div>
     </Button>
-    <Button
-      size="sm"
-      variant="ghost"
-      onClick={() => handleAddElement(DEFAULT_PATH)}
-    >
+    <Button variant="ghost" onClick={() => handleAddElement(DEFAULT_PATH)}>
       <div className="controller">
         <Spline />
         Add path
       </div>
     </Button>
-    <Button
-      size="sm"
-      variant="ghost"
-      onClick={() => handleAddElement(DEFAULT_POLYGON)}
-    >
+    <Button variant="ghost" onClick={() => handleAddElement(DEFAULT_POLYGON)}>
       <div className="controller">
         <Pyramid />
         Add polygon
       </div>
     </Button>
-    <Button
-      size="sm"
-      variant="ghost"
-      onClick={() => handleAddElement(DEFAULT_LINE)}
-    >
+    <Button variant="ghost" onClick={() => handleAddElement(DEFAULT_LINE)}>
       <div className="controller">
         <Minus />
         Add line
       </div>
     </Button>
-    <Button
-      size="sm"
-      variant="ghost"
-      onClick={() => handleAddElement(DEFAULT_POLYLINE)}
-    >
+    <Button variant="ghost" onClick={() => handleAddElement(DEFAULT_POLYLINE)}>
       <div className="controller">
         <Waypoints />
         Add polyline
       </div>
     </Button>
-    <Button
-      size="sm"
-      variant="ghost"
-      onClick={() => handleAddElement(DEFAULT_TEXT)}
-    >
+    <Button variant="ghost" onClick={() => handleAddElement(DEFAULT_TEXT)}>
       <div className="controller">
         <AlignLeft />
         Add text
       </div>
     </Button>
-    <div className="mt-auto flex flex-col sm:flex-row gap-2">
+    <div className="mt-auto flex flex-col sm:flex-row gap-2 pb-12 sm:pb-0">
       <Import handleImport={handleImport} importCloseRef={importCloseRef} />
       <Button onClick={handleExport} className="flex gap-2 w-full">
         <Download />
