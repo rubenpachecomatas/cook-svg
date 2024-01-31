@@ -10,20 +10,22 @@ export default function Home() {
       <Header />
       <main className="flex flex-col justify-center items-center">
         <div className="flex flex-col gap-14 items-center p-10">
-          <h2 className="text-4xl">The easiest way to edit and enlighten your Svgs!</h2>
+          <h2 className="text-4xl">
+            The easiest way to edit and enlighten your Svgs!
+          </h2>
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Button size="lg">
-              <Link href="/kitchen" className="flex items-center gap-2">
+            <Link href="/kitchen" className="flex items-center gap-2">
+              <Button size="lg">
                 <CookingPotIcon className="size-5" />
                 <span className="text-md">Start cooking</span>
-                </Link>
-            </Button>
-            <Button disabled variant="outline" size="lg">
-              <Link href="/kitchen" className="flex items-center gap-2">
+              </Button>
+            </Link>
+            <Link href="/kitchen" className="flex items-center gap-2">
+              <Button disabled variant="outline" size="lg">
                 <BookText className="size-5" />
                 <span className="text-md">Check our recipes</span>
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </div>
       </main>
