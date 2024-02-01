@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Input } from "@/components/ui/input";
 import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
+import SvgElementsInput from "./components/input/SvgElementsInput";
 
 const SvgElements = ({
   elements,
@@ -28,7 +29,11 @@ const SvgElements = ({
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
-            <Accordion className="h-full overflow-important pb-12" type="single" collapsible>
+            <Accordion
+              className="h-full overflow-important pb-12"
+              type="single"
+              collapsible
+            >
               {elements.map(({ id, type, attributes }: SvgElement, index) => (
                 <Draggable key={id} draggableId={id.toString()} index={index}>
                   {(provided) => (
@@ -58,15 +63,12 @@ const SvgElements = ({
                               className="grid grid-cols-6 items-center"
                             >
                               <p className="col-span-2">{field}</p>
-                              <Input
-                                className="text-right col-span-4"
+                              <SvgElementsInput
+                                {...{ id, field, handleChangeAttribute }}
                                 value={
                                   attributes[
                                     field as keyof SvgElementAttributesType
                                   ]
-                                }
-                                onChange={(e) =>
-                                  handleChangeAttribute({ e, id, field })
                                 }
                               />
                             </div>
