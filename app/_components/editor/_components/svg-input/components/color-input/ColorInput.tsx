@@ -22,7 +22,7 @@ const ColorInput = ({
         value={value}
         placeholder="Enter a color"
         onChange={(e) =>
-          handleChangeAttribute({ value: e.target.value, id, field })
+          handleChangeAttribute({ value: e.target.value || "none", id, field })
         }
       />
       <PopoverTrigger asChild>
