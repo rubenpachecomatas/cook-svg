@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import {
+  COLOR_INPUTS,
   NUMBER_INPUT,
   SELECTORS,
 } from "./constants/SvgElementsInput.constants";
@@ -9,11 +10,11 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
 import { SelectorOptionType } from "./types/SelectorOption.type";
+import ColorInput from "./components/color-input/ColorInput";
 
 const SvgElementsInput = ({
   id,
@@ -41,6 +42,8 @@ const SvgElementsInput = ({
         </SelectGroup>
       </SelectContent>
     </Select>
+  ) : COLOR_INPUTS.includes(field) ? (
+    <ColorInput {...{ id, field, value, handleChangeAttribute }} />
   ) : (
     <Input
       className="col-span-4"
@@ -49,6 +52,7 @@ const SvgElementsInput = ({
       onChange={(e) =>
         handleChangeAttribute({ value: e.target.value, id, field })
       }
+      placeholder="Enter a value"
     />
   );
 

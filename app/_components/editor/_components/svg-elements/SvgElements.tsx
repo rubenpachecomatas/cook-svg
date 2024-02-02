@@ -1,6 +1,5 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import { SvgElementAttributesType } from "@/types/svg-element-attributes.type";
 import { SvgElement } from "@/types/svg-element.type";
 import { Eraser, GripVertical } from "lucide-react";
@@ -12,7 +11,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
-import SvgElementsInput from "./components/input/SvgElementsInput";
+import SvgElementsInput from "../svg-input/SvgElementsInput";
 
 const SvgElements = ({
   elements,

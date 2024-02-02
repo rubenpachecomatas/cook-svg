@@ -33,4 +33,6 @@ const SELECTORS: any = {
   },
 };
 
-export { NUMBER_INPUT, SELECTORS };
+const COLOR_INPUTS = ["fill", "stroke"];
+
+export { COLOR_INPUTS, NUMBER_INPUT, SELECTORS };

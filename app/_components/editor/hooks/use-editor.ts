@@ -76,13 +76,15 @@ const useEditor = (): UseEditorReturnType => {
   };
 
   const handleChangeSvgAttribute = ({
-    e,
+    id,
     field,
+    value,
   }: {
-    e: any;
+    id: number;
     field: string;
+    value: any;
   }) => {
-    setSvgAttributes((prev) => ({ ...prev, [field]: e.target.value }));
+    setSvgAttributes((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleDeleteElement = (elId: number) => {

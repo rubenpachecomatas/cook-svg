@@ -16,7 +16,15 @@ export type UseEditorReturnType = {
     value: any;
   }) => void;
   handleChangeScale: (value: number[]) => void;
-  handleChangeSvgAttribute: ({ e, field }: { e: any; field: string }) => void;
+  handleChangeSvgAttribute: ({
+    id,
+    field,
+    value,
+  }: {
+    id: number;
+    field: string;
+    value: any;
+  }) => void;
   handleDeleteElement: (id: number) => void;
   handleDragElement: (result: DropResult) => void;
   handleExport: () => void;

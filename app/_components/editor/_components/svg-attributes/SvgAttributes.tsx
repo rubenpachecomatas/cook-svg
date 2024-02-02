@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { SvgAttributesProps } from "./types/SvgAttributes.type";
 import { SvgAttributesType } from "@/types/svg-attributes.type";
 import { FILTERED_ATTRIBUTES } from "./constants/SvgAttributes.constants";
+import SvgElementsInput from "../svg-input/SvgElementsInput";
 
 const SvgAttributes = ({
   svgAttributes,
@@ -13,10 +14,14 @@ const SvgAttributes = ({
       {Object.keys(svgAttributes)
         .filter((field) => !FILTERED_ATTRIBUTES.includes(field))
         .map((field, i) => (
-          <div key={i} className="grid grid-cols-6 items-center">
-            <p className="col-span-2">{field}</p>
-            <Input
-              className="text-right col-span-4"
+          <div key={i} className="grid grid-cols-6 items-center gap-2">
+            <p className="col-span-2 truncate">{field}</p>
+            <SvgElementsInput
+              {...{
+                id: i,
+                field,
+                handleChangeAttribute: handleChangeSvgAttribute,
+              }}
               value={
                 svgAttributes[field as keyof SvgAttributesType] !== true &&
                 svgAttributes[field as keyof SvgAttributesType] !== null
@@ -25,7 +30,6 @@ const SvgAttributes = ({
                     ]?.toString() || ""
                   : ""
               }
-              onChange={(e) => handleChangeSvgAttribute({ e, field })}
             />
           </div>
         ))}

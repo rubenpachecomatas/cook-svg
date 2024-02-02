@@ -2,8 +2,8 @@ import { SvgElementTypes } from "@/enums/svg-element-types.enum";
 import { CommonAttributes } from "@/types/svg-element-attributes.type";
 
 const DEFAULT_COMMON_ATTRIBUTES: CommonAttributes = {
-  fill: "",
-  stroke: "",
+  fill: "#000",
+  stroke: "#000",
   strokeWidth: "",
   strokeLinecap: "inherit",
   strokeLinejoin: "inherit",
