@@ -20,12 +20,15 @@ export default function Home() {
                 <span className="text-md">Start cooking</span>
               </Button>
             </Link>
-            <Link href="/kitchen" className="flex items-center gap-2">
-              <Button className="w-full flex items-center gap-2" disabled variant="outline" size="lg">
-                <BookText className="size-5" />
-                <span className="text-md">Check our recipes</span>
-              </Button>
-            </Link>
+            <Button
+              className="w-full flex items-center gap-2"
+              disabled
+              variant="outline"
+              size="lg"
+            >
+              <BookText className="size-5" />
+              <span className="text-md">Check our recipes</span>
+            </Button>
           </div>
         </div>
       </main>
