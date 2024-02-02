@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Onest } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react";
 
 const onest = Onest({ subsets: ["latin"] });
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       </head>
       <body className={cn(onest.className, "h-screen flex flex-col")}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
