@@ -7,13 +7,13 @@ export type UseEditorReturnType = {
   elements: SvgElement[];
   handleAddElement: (type: any) => void;
   handleChangeAttribute: ({
-    e,
     id,
     field,
+    value,
   }: {
-    e: any;
     id: number;
     field: string;
+    value: any;
   }) => void;
   handleChangeScale: (value: number[]) => void;
   handleChangeSvgAttribute: ({ e, field }: { e: any; field: string }) => void;

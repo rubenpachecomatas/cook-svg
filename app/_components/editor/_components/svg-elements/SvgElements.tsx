@@ -60,9 +60,9 @@ const SvgElements = ({
                           {Object.keys(attributes).map((field, i) => (
                             <div
                               key={i}
-                              className="grid grid-cols-6 items-center"
+                              className="grid grid-cols-6 items-center gap-2"
                             >
-                              <p className="col-span-2">{field}</p>
+                              <p className="col-span-2 truncate">{field}</p>
                               <SvgElementsInput
                                 {...{ id, field, handleChangeAttribute }}
                                 value={

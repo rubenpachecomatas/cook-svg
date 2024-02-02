@@ -52,13 +52,13 @@ const useEditor = (): UseEditorReturnType => {
   };
 
   const handleChangeAttribute = ({
-    e,
     id,
     field,
+    value,
   }: {
-    e: any;
     id: number;
     field: string;
+    value: any;
   }) => {
     const elToEdit = elements.findIndex((e) => e.id === id);
     if (elToEdit !== -1) {
@@ -67,7 +67,7 @@ const useEditor = (): UseEditorReturnType => {
         ...newElements[elToEdit],
         attributes: {
           ...newElements[elToEdit].attributes,
-          [field]: e.target.value,
+          [field]: value,
         },
       };
 

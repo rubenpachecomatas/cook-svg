@@ -5,8 +5,8 @@ const DEFAULT_COMMON_ATTRIBUTES: CommonAttributes = {
   fill: "",
   stroke: "",
   strokeWidth: "",
-  strokeLinecap: undefined,
-  strokeLinejoin: undefined,
+  strokeLinecap: "inherit",
+  strokeLinejoin: "inherit",
 };
 
 const DEFAULT_CIRCLE = {

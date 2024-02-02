@@ -14,4 +14,23 @@ const NUMBER_INPUT = [
   "height",
 ];
 
-export { NUMBER_INPUT };
+const SELECTORS: any = {
+  strokeLinecap: {
+    options: [
+      { label: "Inherit", value: "inherit" },
+      { label: "Butt", value: "butt" },
+      { label: "Round", value: "round" },
+      { label: "Square", value: "square" },
+    ],
+  },
+  strokeLinejoin: {
+    options: [
+      { label: "Inherit", value: "inherit" },
+      { label: "Round", value: "round" },
+      { label: "Miter", value: "miter" },
+      { label: "Bevel", value: "bevel" },
+    ],
+  },
+};
+
+export { NUMBER_INPUT, SELECTORS };
