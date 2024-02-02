@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const onest = Onest({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Cook Svg",
+  title: "Cook SVG",
   description: "Editing svg has never been easier!",
 };
 
