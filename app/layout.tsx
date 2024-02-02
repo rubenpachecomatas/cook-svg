@@ -17,12 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          onest.className,
-          "h-screen flex flex-col"
-        )}
-      >
+      <head>
+        <link rel="icon" href="/favicon.svg" sizes="any" />
+      </head>
+      <body className={cn(onest.className, "h-screen flex flex-col")}>
         {children}
       </body>
     </html>

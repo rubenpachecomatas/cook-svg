@@ -15,13 +15,13 @@ export default function Home() {
           </h2>
           <div className="flex flex-col gap-4 sm:flex-row">
             <Link href="/kitchen" className="flex items-center gap-2">
-              <Button className="w-full" size="lg">
+              <Button className="w-full flex items-center gap-2" size="lg">
                 <CookingPotIcon className="size-5" />
                 <span className="text-md">Start cooking</span>
               </Button>
             </Link>
             <Link href="/kitchen" className="flex items-center gap-2">
-              <Button className="w-full" disabled variant="outline" size="lg">
+              <Button className="w-full flex items-center gap-2" disabled variant="outline" size="lg">
                 <BookText className="size-5" />
                 <span className="text-md">Check our recipes</span>
               </Button>
