@@ -86,7 +86,7 @@ const SvgElements = ({
     </DragDropContext>
   ) : (
     <div className="h-full flex items-center justify-center">
-      <h2 className="text-2xl font-bold text-center opacity-25">
+      <h2 className="text-2xl font-bold text-center opacity-45">
         Svg Elements will appear here
       </h2>
     </div>
