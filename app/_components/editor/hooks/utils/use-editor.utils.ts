@@ -22,6 +22,9 @@ const isSvgElementTypes = (name: string): name is SvgElementTypes => {
   return name in SvgElementTypes;
 };
 
+const camelize = (s: string): string =>
+  s.replace(/-./g, (x) => x[1].toUpperCase());
+
 const formatSvgElementAttributes = (
   attributes: NamedNodeMap
 ): SvgElementAttributesType => {
@@ -29,7 +32,8 @@ const formatSvgElementAttributes = (
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
-    newSvgAttributes[attribute.name] = attribute.value;
+    const attributeName = camelize(attribute.name);
+    newSvgAttributes[attributeName] = attribute.value;
   }
 
   return newSvgAttributes;
@@ -40,7 +44,8 @@ const formatSvgAttributes = (attributes: NamedNodeMap): SvgAttributesType => {
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
-    newSvgAttributes[attribute.name] = attribute.value;
+    const attributeName = camelize(attribute.name);
+    newSvgAttributes[attributeName] = attribute.value;
   }
 
   return newSvgAttributes;
