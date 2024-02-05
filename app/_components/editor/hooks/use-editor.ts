@@ -20,7 +20,7 @@ const useEditor = (): UseEditorReturnType => {
   const svgRef = useRef<ElementRef<"svg">>(null);
   const importCloseRef = useRef<ElementRef<"button">>(null);
 
-  const [isMobile, setisMobile] = useState<boolean | null>(null);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
   const [svgAttributes, setSvgAttributes] = useState<SvgAttributesType>(
     DEFAULT_SVG_ATTRIBUTES
   );
@@ -152,7 +152,7 @@ const useEditor = (): UseEditorReturnType => {
   };
 
   useEffect(() => {
-    setisMobile(matches);
+    setIsMobile(matches);
   }, [matches]);
 
   return {
