@@ -21,7 +21,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.svg" sizes="any" />
       </head>
-      <body className={cn(onest.className, "h-screen flex flex-col")}>
+      <body className={cn(onest.className, "h-svh flex flex-col")}>
         {children}
         <Analytics />
       </body>
